@@ -309,6 +309,8 @@ void UKF::UpdateRadar(const VectorXd &z) { // TODO: This is definitely fucked up
     for (int i = 0; i < 2 * n_aug_ + 1; i++) {  //2n+1 simga points
         VectorXd z_diff = Zsig.col(i) - z_pred;         //residual
 
+
+        // TODO: THESE HAVE GOTTA GO!!!! ATAN2
         //angle normalization
         while (z_diff(1) > M_PI) z_diff(1) -= 2. * M_PI;
         while (z_diff(1) < -M_PI) z_diff(1) += 2. * M_PI;
