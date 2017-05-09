@@ -16,6 +16,10 @@ public:
     ///* for tracking delta t
     long long previous_timestamp_;
 
+    Eigen::MatrixXd H_;
+    Eigen::MatrixXd H_laser_;
+    Eigen::MatrixXd Xsig_pred;
+
     ///* initially set to false, set to true in first call of ProcessMeasurement
     bool is_initialized_;
 
@@ -103,13 +107,13 @@ public:
      * Updates the state and the state covariance matrix using a laser measurement
      * @param meas_package The measurement at k+1
      */
-    void UpdateLidar(MeasurementPackage meas_package);
+    void UpdateLidar(const VectorXd &z);
 
     /**
      * Updates the state and the state covariance matrix using a radar measurement
      * @param meas_package The measurement at k+1
      */
-    void UpdateRadar(MeasurementPackage meas_package);
+    void UpdateRadar(const VectorXd &z);
 };
 
 #endif /* UKF_H */
