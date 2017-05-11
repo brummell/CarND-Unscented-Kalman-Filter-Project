@@ -158,12 +158,12 @@ int main(int argc, char *argv[]) {
     out_file_ << "vy_ground_truth" << "\n";
 
 
-//  for (size_t k = 0; k < number_of_measurements; ++k) {
-    for (size_t k = 0; k < 100; ++k) {
+  for (size_t k = 0; k < number_of_measurements; ++k) {
+//    for (size_t k = 0; k < 10; ++k) {
         // TODO: MINE
-        if (measurement_pack_list[k].sensor_type_ == MeasurementPackage::LASER) {continue;}
-
-        // Call the UKF-based fusion
+//        if (measurement_pack_list[k].sensor_type_ == MeasurementPackage::RADAR) {continue;}
+//      = [.09, .10, .40, .30]
+      // Call the UKF-based fusion
         ukf.ProcessMeasurement(measurement_pack_list[k]);
 
         // timestamp
