@@ -136,6 +136,8 @@ void UKF::Prediction(double delta_t) {
     // TODO: propagate each point through the process model (CRTV)
     // TODO: update augmented covariance matrix (top left plus process noise in bottom right)
 
+    // rather than generating a second set of sigma points to be able to propogate though the noise
+    //   part of the process model, include them as dims in original sig point calc, model will squeeze back to 5d
     VectorXd x_aug = VectorXd(7);    //create augmented mean vector
     MatrixXd P_aug = MatrixXd(7, 7);    //create augmented state covariance
     MatrixXd X_sigma_aug = MatrixXd(n_aug_, 2 * n_aug_ + 1);     //create sigma point matrix
