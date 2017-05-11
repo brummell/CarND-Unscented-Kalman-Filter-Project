@@ -159,7 +159,7 @@ int main(int argc, char *argv[]) {
 
 
 //  for (size_t k = 0; k < number_of_measurements; ++k) {
-    for (size_t k = 0; k < 10; ++k) {
+    for (size_t k = 0; k < 100; ++k) {
         // TODO: MINE
         if (measurement_pack_list[k].sensor_type_ == MeasurementPackage::LASER) {continue;}
 

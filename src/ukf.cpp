@@ -103,19 +103,19 @@ void UKF::ProcessMeasurement(MeasurementPackage measurement_pack) {
     /*****************************************************************************
      *  Update
      ****************************************************************************/
-    if (measurement_pack.sensor_type_ == MeasurementPackage::RADAR) {
-//        H_ = Hj_;
-//        R_ = R_radar_;
-        UpdateRadar(measurement_pack.raw_measurements_);
-        cout << "RADAR" << endl;
-    } else {
-        H_ = H_laser_;
-//        ekf_.R_ = R_laser_;
-        UpdateLidar(measurement_pack.raw_measurements_);
-        cout << "LIDAR" << endl;
-
-
-    }
+//    if (measurement_pack.sensor_type_ == MeasurementPackage::RADAR) {
+////        H_ = Hj_;
+////        R_ = R_radar_;
+//        UpdateRadar(measurement_pack.raw_measurements_);
+//        cout << "RADAR" << endl;
+//    } else {
+//        H_ = H_laser_;
+////        ekf_.R_ = R_laser_;
+//        UpdateLidar(measurement_pack.raw_measurements_);
+//        cout << "LIDAR" << endl;
+//
+//
+//    }
 
 }
 
@@ -206,8 +206,6 @@ void UKF::Prediction(double delta_t) {
     }
 
     VectorXd weights = VectorXd(2 * n_aug_ + 1); //create vector for weights
-    VectorXd x = VectorXd(n_x_); //create vector for predicted state
-    MatrixXd P = MatrixXd(n_x_, n_x_); //create covariance matrix for prediction
 
     // set weights
     double weight_0 = lambda_ / (lambda_ + n_aug_);
@@ -227,11 +225,14 @@ void UKF::Prediction(double delta_t) {
     //predicted state covariance matrix
     P_.fill(0.0);
     for (int i = 0; i < 2 * n_aug_ + 1; i++) {  //iterate over sigma points
-        VectorXd x_diff = Xsig_pred.col(i) - x;         // state difference
+        VectorXd x_diff = Xsig_pred.col(i) - x_;         // state difference
+        // TODO: ATAN2
         while (x_diff(3) > M_PI) x_diff(3) -= 2. * M_PI;         //angle normalization
         while (x_diff(3) < -M_PI) x_diff(3) += 2. * M_PI;
         P_ = P_ + weights(i) * x_diff * x_diff.transpose();
     }
+    cout << "Covar" << endl;
+    cout << P_ << endl;
 }
 
 
