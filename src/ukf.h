@@ -20,6 +20,8 @@ public:
     Eigen::MatrixXd H_laser_;
     Eigen::MatrixXd Xsig_pred;
 
+    Tools tools;
+
     ///* initially set to false, set to true in first call of ProcessMeasurement
     bool is_initialized_;
 
@@ -95,6 +97,8 @@ public:
      * @param meas_package The latest measurement data of either radar or laser
      */
     void ProcessMeasurement(MeasurementPackage meas_package);
+
+    void SetWeights();
 
     /**
      * Prediction Predicts sigma points, the state, and the state covariance
